@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+<style>
+body {
+    font-family: 'Georgia', serif;
+    text-align: center;
+    background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
+    padding: 20px;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+.box-container {
+    margin-top: 30px;
+}
+
+.word-box {
+    display: inline-block;
+    padding: 15px 20px;
+    margin: 10px;
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.word-box:hover {
+    transform: scale(1.1);
+    background: #ffe6ec;
+}
+
+#poem {
+    margin-top: 40px;
+    min-height: 100px;
+    font-size: 18px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<h1>Happy Valentine's Day ❤️</h1>
+
+<img src="https://media.tenor.com/8kY1DqP9PpEAAAAC/love-heart.gif" width="200">
+
+<p>Click the boxes. Build your haiku. I believe in you.</p>
+
+<div class="box-container">
+    <div class="word-box" onclick="addWord(this)">silent</div>
+    <div class="word-box" onclick="addWord(this)">nights</div>
+    <div class="word-box" onclick="addWord(this)">with</div>
+    <div class="word-box" onclick="addWord(this)">you</div>
+    <div class="word-box" onclick="addWord(this)">feel</div>
+    <div class="word-box" onclick="addWord(this)">like</div>
+    <div class="word-box" onclick="addWord(this)">home</div>
+</div>
+
+<div id="poem"></div>
+
+<button onclick="checkPoem()">Submit Haiku</button>
+
+<script>
+let poem = [];
+
+function addWord(element) {
+    poem.push(element.innerText);
+    document.getElementById("poem").innerText = poem.join(" ");
+}
+
+function checkPoem() {
+    let correct = "silent nights with you feel like home";
+    if (poem.join(" ") === correct) {
+        alert("You solved it ❤️ You are my forever.");
+    } else {
+        alert("Hmm… try again my poet 😌");
+    }
+}
+</script>
+
+</body>
+</html>

@@ -181,16 +181,15 @@ button:active {
 <div class="game-container" id="game">
 
 <h1>Happy Valentine's Day My Dearest🥰 </h1>
-<p>Drag the words to build your haiku. </p>
+<p>Drag the words to build your valentine's poem. </p>
 
 <div class="word-bank" id="wordBank">
-    <div class="word" draggable="true">silent</div>
-    <div class="word" draggable="true">nights</div>
-    <div class="word" draggable="true">with</div>
-    <div class="word" draggable="true">you</div>
-    <div class="word" draggable="true">feel</div>
-    <div class="word" draggable="true">like</div>
-    <div class="word" draggable="true">home</div>
+    <div class="word" draggable="true">My</div>
+    <div class="word" draggable="true">Led</div>
+    <div class="word" draggable="true">All</div>
+    <div class="word" draggable="true">To</div>
+    <div class="word" draggable="true">Nights</div>
+    <div class="word" draggable="true">You</div>
 </div>
 
 <div class="drop-zone" id="dropZone">
@@ -198,13 +197,13 @@ button:active {
 </div>
 
 <button onclick="checkPoem()">Submit</button>
-<button onclick="playMusic()">Play Our Song 🎵</button>
+<button onclick="toggleMusic(this)">Play Our Song 🎵</button>
+
+</div>
 
 <audio id="bgMusic" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
-
-</div>
 
 <script>
 
@@ -282,10 +281,10 @@ function checkPoem() {
         .map(w => w.innerText)
         .join(" ");
 
-    if (userText === "silent nights with you feel like home") {
+    if (userText === "All My Nights Led To You") {
         showLoveLetter();
     } else {
-        alert("Not the one... try again baby🥺");
+        alert("Not this way... try again baby🥺");
     }
 }
 
@@ -320,28 +319,39 @@ function showLoveLetter() {
 
     document.getElementById("game").innerHTML = `
         <div class="fade">
-            <h2>You solved it 😘</h2>
+            <h2>You solved it honey 😘</h2>
             <p>
-            In quiet nights and loud days,<br>
-            You are my peace,<br>
-            My always and my home.
+            All my nights led to you<br>
+            I was the moon waiting<br>
+            You, my long-awaited sun<br>
+            Pulled by a love I prayed for<br>
+            Written long before we met<br>
+            Chosen in every lifetime<br>
+            My forever begins and ends with you.
             </p>
-            <button onclick="location.reload()">Retry</button>
-            <br><br>
+            <button onclick="toggleMusic(this)">Play Our Song 🎵</button>
             <button onclick="alert('YOU ARE MINE NOW FOREVER!! 💘')">
                 Be My Valentine Forever?
             </button>
+            <br><br>
+            <button onclick="location.reload()">Retry?</button>
         </div>
     `;
 }
 
-
 // MUSIC
-function playMusic() {
+function toggleMusic(button) {
     const music = document.getElementById("bgMusic");
-    music.play();
-    event.target.innerText = "Playing... 💕";
+
+    if (music.paused) {
+        music.play();
+        button.innerText = "Pause Our Song ⏸";
+    } else {
+        music.pause();
+        button.innerText = "Play Our Song 🎵";
+    }
 }
+
 
 // FLOATING HEARTS
 const heartColors = ["#ff4d6d","#ffffff","#c77dff","#ff85a1", "#b5179e"];

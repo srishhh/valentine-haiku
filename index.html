@@ -51,7 +51,191 @@ button {
     cursor: pointer;
 }
 </style>
+</head><!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+<style>
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    text-align: center;
+    background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
+    overflow-x: hidden;
+}
+
+h1 {
+    margin-top: 30px;
+}
+
+.container {
+    padding: 20px;
+}
+
+.word-bank, .drop-zone {
+    margin-top: 30px;
+}
+
+.word {
+    display: inline-block;
+    padding: 12px 18px;
+    margin: 8px;
+    background: white;
+    border-radius: 10px;
+    cursor: grab;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.word:hover {
+    transform: scale(1.1);
+    background: #ffe6ec;
+}
+
+.drop-zone {
+    min-height: 100px;
+    border: 2px dashed white;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+button {
+    margin-top: 25px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.fade {
+    animation: fadeIn 2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 0.7; }
+    100% { transform: translateY(-110vh); opacity: 0; }
+}
+</style>
 </head>
+
+<body>
+
+<div class="container" id="mainContent">
+<h1>Happy Valentine's Day ❤️</h1>
+
+<p>Drag the words into the box. Build your haiku.</p>
+
+<div class="word-bank" id="wordBank">
+    <div class="word" draggable="true">silent</div>
+    <div class="word" draggable="true">nights</div>
+    <div class="word" draggable="true">with</div>
+    <div class="word" draggable="true">you</div>
+    <div class="word" draggable="true">feel</div>
+    <div class="word" draggable="true">like</div>
+    <div class="word" draggable="true">home</div>
+</div>
+
+<div class="drop-zone" id="dropZone">
+    Drop words here...
+</div>
+
+<button onclick="checkPoem()">Submit</button>
+
+<br><br>
+<button onclick="playMusic()">Play Our Song 🎵</button>
+
+<audio id="bgMusic" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+// Drag & Drop
+let words = document.querySelectorAll(".word");
+let dropZone = document.getElementById("dropZone");
+
+words.forEach(word => {
+    word.addEventListener("dragstart", dragStart);
+});
+
+dropZone.addEventListener("dragover", e => e.preventDefault());
+dropZone.addEventListener("drop", drop);
+
+function dragStart(e) {
+    e.dataTransfer.setData("text", e.target.innerText);
+}
+
+function drop(e) {
+    e.preventDefault();
+    let data = e.dataTransfer.getData("text");
+    let span = document.createElement("span");
+    span.innerText = data + " ";
+    dropZone.appendChild(span);
+}
+
+function checkPoem() {
+    let correct = "silent nights with you feel like home";
+    let userText = dropZone.innerText.trim().toLowerCase();
+    
+    if (userText === correct) {
+        showLoveLetter();
+    } else {
+        alert("Hmm… try again, poet ❤️");
+    }
+}
+
+function showLoveLetter() {
+    document.getElementById("mainContent").innerHTML = `
+        <div class="fade">
+        <h2>You solved it ❤️</h2>
+        <p>
+        In every silent night,<br>
+        In every chaotic day,<br>
+        You are my peace, my home, my always.
+        </p>
+        </div>
+    `;
+}
+
+// Music
+function playMusic() {
+    document.getElementById("bgMusic").play();
+}
+
+// Floating Hearts Generator
+setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 800);
+</script>
+
+</body>
+</html>
+
 <body>
 
 <h1>Happy Valentine's Day ❤️</h1>

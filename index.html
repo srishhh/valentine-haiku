@@ -3,128 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <title>For You ❤️</title>
-<style>
-body {
-    font-family: 'Georgia', serif;
-    text-align: center;
-    background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
-    padding: 20px;
-}
 
-h1 {
-    margin-top: 20px;
-}
-
-.box-container {
-    margin-top: 30px;
-}
-
-.word-box {
-    display: inline-block;
-    padding: 15px 20px;
-    margin: 10px;
-    background: white;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
-}
-
-.word-box:hover {
-    transform: scale(1.1);
-    background: #ffe6ec;
-}
-
-#poem {
-    margin-top: 40px;
-    min-height: 100px;
-    font-size: 18px;
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background: #ff4d6d;
-    color: white;
-    cursor: pointer;
-}
-</style>
-</head><!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>For You ❤️</title>
 <style>
 body {
     margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #ffdde1, #d36c8e);
+    animation: pageFade 1.5s ease-in forwards;
+    opacity: 0;
+}
+
+@keyframes pageFade {
+    to {
+        opacity: 1;
+    }
+}
+
+.game-container {
     text-align: center;
-    background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
-    overflow-x: hidden;
+    width: 80%;
+    max-width: 700px;
+    padding: 40px;
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow: 
+    0 0 30px rgba(255, 182, 193, 0.25),
+    0 0 60px rgba(255, 105, 135, 0.15);
 }
 
 h1 {
-    margin-top: 30px;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
 }
 
-.container {
-    padding: 20px;
+h1::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.6),
+        transparent
+    );
+    transform: skewX(-20deg);
+    animation: shimmer 4s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    60% {
+        left: 150%;
+    }
+    100% {
+        left: 150%;
+    }
 }
 
 .word-bank, .drop-zone {
-    margin-top: 30px;
+    margin-top: 25px;
+    min-height: 70px;
 }
 
 .word {
     display: inline-block;
-    padding: 12px 18px;
-    margin: 8px;
+    padding: 10px 16px;
+    margin: 6px;
     background: white;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: grab;
     font-weight: bold;
     transition: 0.2s;
 }
 
 .word:hover {
-    transform: scale(1.1);
     background: #ffe6ec;
+    transform: scale(1.05);
 }
 
 .drop-zone {
-    min-height: 100px;
     border: 2px dashed white;
     padding: 20px;
     border-radius: 12px;
 }
 
 button {
-    margin-top: 25px;
-    padding: 10px 20px;
+    margin-top: 20px;
+    padding: 10px 18px;
     border: none;
     border-radius: 8px;
-    background: #ff4d6d;
+    background: #d63578;
     color: white;
     cursor: pointer;
-    font-size: 16px;
+    transition: all 0.3s ease;
 }
 
-.fade {
-    animation: fadeIn 2s ease-in-out forwards;
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 77, 109, 0.6);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+button:active {
+    transform: scale(0.97);
+}
+
+.fade button {
+    animation: buttonGlow 2s infinite alternate;
+}
+
+@keyframes buttonGlow {
+    from {
+        box-shadow: 0 0 10px rgba(255, 105, 135, 0.4);
+    }
+    to {
+        box-shadow: 0 0 25px rgba(255, 105, 135, 0.9);
+    }
 }
 
 /* Floating hearts */
 .heart {
     position: fixed;
     bottom: -20px;
-    font-size: 20px;
+    font-size: 18px;
     animation: floatUp 6s linear infinite;
     opacity: 0.7;
 }
@@ -133,15 +148,40 @@ button {
     0% { transform: translateY(0); opacity: 0.7; }
     100% { transform: translateY(-110vh); opacity: 0; }
 }
+
+.fade {
+    animation: fadeIn 2s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
+@keyframes sparklePop {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    40% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="container" id="mainContent">
-<h1>Happy Valentine's Day ❤️</h1>
+<div class="game-container" id="game">
 
-<p>Drag the words into the box. Build your haiku.</p>
+<h1>Happy Valentine's Day My Dearest🥰 </h1>
+<p>Drag the words to build your haiku. </p>
 
 <div class="word-bank" id="wordBank">
     <div class="word" draggable="true">silent</div>
@@ -154,12 +194,10 @@ button {
 </div>
 
 <div class="drop-zone" id="dropZone">
-    Drop words here...
+    Drop words here
 </div>
 
 <button onclick="checkPoem()">Submit</button>
-
-<br><br>
 <button onclick="playMusic()">Play Our Song 🎵</button>
 
 <audio id="bgMusic" loop>
@@ -169,112 +207,179 @@ button {
 </div>
 
 <script>
-// Drag & Drop
-let words = document.querySelectorAll(".word");
-let dropZone = document.getElementById("dropZone");
 
-words.forEach(word => {
-    word.addEventListener("dragstart", dragStart);
+const wordBank = document.getElementById("wordBank");
+const dropZone = document.getElementById("dropZone");
+
+let placeholderText = "Drop words here";
+
+dropZone.innerText = placeholderText;
+
+// DRAG START
+document.querySelectorAll(".word").forEach(word => {
+    word.addEventListener("dragstart", e => {
+        e.dataTransfer.setData("text", e.target.innerText);
+        e.dataTransfer.setData("source", "bank");
+    });
 });
 
+// ALLOW DROP
 dropZone.addEventListener("dragover", e => e.preventDefault());
-dropZone.addEventListener("drop", drop);
+wordBank.addEventListener("dragover", e => e.preventDefault());
 
-function dragStart(e) {
-    e.dataTransfer.setData("text", e.target.innerText);
-}
-
-function drop(e) {
+// DROP INTO DROP ZONE
+dropZone.addEventListener("drop", e => {
     e.preventDefault();
-    let data = e.dataTransfer.getData("text");
-    let span = document.createElement("span");
-    span.innerText = data + " ";
-    dropZone.appendChild(span);
-}
+    let text = e.dataTransfer.getData("text");
+    let source = e.dataTransfer.getData("source");
 
+    if (source === "bank") {
+        let originalWord = [...wordBank.children].find(w => w.innerText === text);
+        if (!originalWord) return;
+
+        originalWord.style.display = "none";
+
+        if (dropZone.innerText === placeholderText) {
+            dropZone.innerText = "";
+        }
+
+        let newWord = document.createElement("span");
+        newWord.className = "word";
+        newWord.innerText = text;
+        newWord.draggable = true;
+
+        newWord.addEventListener("dragstart", ev => {
+            ev.dataTransfer.setData("text", text);
+            ev.dataTransfer.setData("source", "drop");
+        });
+
+        dropZone.appendChild(newWord);
+    }
+});
+
+// DROP BACK INTO WORD BANK
+wordBank.addEventListener("drop", e => {
+    e.preventDefault();
+    let text = e.dataTransfer.getData("text");
+    let source = e.dataTransfer.getData("source");
+
+    if (source === "drop") {
+        let wordInDrop = [...dropZone.children].find(w => w.innerText === text);
+        if (wordInDrop) wordInDrop.remove();
+
+        let originalWord = [...wordBank.children].find(w => w.innerText === text);
+        if (originalWord) originalWord.style.display = "inline-block";
+
+        if (dropZone.children.length === 0) {
+            dropZone.innerText = placeholderText;
+        }
+    }
+});
+
+// CHECK ANSWER
 function checkPoem() {
-    let correct = "silent nights with you feel like home";
-    let userText = dropZone.innerText.trim().toLowerCase();
-    
-    if (userText === correct) {
+    let userText = [...dropZone.querySelectorAll(".word")]
+        .map(w => w.innerText)
+        .join(" ");
+
+    if (userText === "silent nights with you feel like home") {
         showLoveLetter();
     } else {
-        alert("Hmm… try again, poet ❤️");
+        alert("Not the one... try again baby🥺");
     }
 }
 
+// LOVE LETTER + RETRY
 function showLoveLetter() {
-    document.getElementById("mainContent").innerHTML = `
+
+    // sparkle pop effect
+    const sparkleColors = ["#ffffff", "#ffe066", "#fff3b0"];
+
+    for (let i = 0; i < 45; i++) {
+
+        setTimeout(() => {
+
+            let sparkle = document.createElement("div");
+            sparkle.innerHTML = "✨";
+            sparkle.style.position = "fixed";
+            sparkle.style.left = Math.random() * 100 + "vw";
+            sparkle.style.top = Math.random() * 100 + "vh";
+            sparkle.style.fontSize = (14 + Math.random() * 24) + "px";
+            sparkle.style.color = sparkleColors[Math.floor(Math.random() * sparkleColors.length)];
+            sparkle.style.pointerEvents = "none";
+            sparkle.style.zIndex = "9999";
+            sparkle.style.filter = "drop-shadow(0 0 8px rgba(255,255,255,0.8))";
+            sparkle.style.animation = "sparklePop 1.4s ease-out forwards";
+
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => sparkle.remove(), 1400);
+
+        }, i * 70);
+    }
+
+    document.getElementById("game").innerHTML = `
         <div class="fade">
-        <h2>You solved it ❤️</h2>
-        <p>
-        In every silent night,<br>
-        In every chaotic day,<br>
-        You are my peace, my home, my always.
-        </p>
+            <h2>You solved it 😘</h2>
+            <p>
+            In quiet nights and loud days,<br>
+            You are my peace,<br>
+            My always and my home.
+            </p>
+            <button onclick="location.reload()">Retry</button>
+            <br><br>
+            <button onclick="alert('YOU ARE MINE NOW FOREVER!! 💘')">
+                Be My Valentine Forever?
+            </button>
         </div>
     `;
 }
 
-// Music
+
+// MUSIC
 function playMusic() {
-    document.getElementById("bgMusic").play();
+    const music = document.getElementById("bgMusic");
+    music.play();
+    event.target.innerText = "Playing... 💕";
 }
 
-// Floating Hearts Generator
+// FLOATING HEARTS
+const heartColors = ["#ff4d6d","#ffffff","#c77dff","#ff85a1", "#b5179e"];
 setInterval(() => {
     let heart = document.createElement("div");
     heart.className = "heart";
-    heart.innerText = "❤️";
+    heart.innerHTML = "❤";  // solid heart character
+    heart.style.color = heartColors[Math.floor(Math.random() * heartColors.length)];
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+    heart.style.fontSize = (14 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-}, 800);
+
+    setTimeout(() => heart.remove(), 7000);
+}, 700);
+
+// GLOWING CURSOR
+let cursorGlow = document.createElement("div");
+cursorGlow.style.position = "fixed";
+cursorGlow.style.width = "25px";
+cursorGlow.style.height = "25px";
+cursorGlow.style.borderRadius = "50%";
+cursorGlow.style.background = "radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%)";
+cursorGlow.style.pointerEvents = "none";
+cursorGlow.style.zIndex = "9999";
+cursorGlow.style.transition = "transform 0.08s linear";
+document.body.appendChild(cursorGlow);
+
+document.addEventListener("mousemove", e => {
+    cursorGlow.style.left = e.clientX - 12 + "px";
+    cursorGlow.style.top = e.clientY - 12 + "px";
+});
+
+
+//secret message
+console.log("Look who found this secret message... I'll try to keep this a secret and let you find it, unless you give up hehe.\nOm, you are someone very special to me and will always be.\nYou are the one sent for me by the heavens.\nI begged God so much that he eventually gave up and let us meet after all.\nI'll never let you go since you were my goal all along,\nThe reason why I didn't give up on life because you are my purpose.\nMy purpose of love, all this love in me are meant for you, has always meant for you.\nI promise to keep you happy as I owe this love to you.\nThank you for letting me feel the warmth of love. My happy ending that you are.\nMy dearest ❤️");
+
 </script>
-
-</body>
-</html>
-
-<body>
-
-<h1>Happy Valentine's Day ❤️</h1>
-
-<img src="https://media.tenor.com/8kY1DqP9PpEAAAAC/love-heart.gif" width="200">
-
-<p>Click the boxes. Build your haiku. I believe in you.</p>
-
-<div class="box-container">
-    <div class="word-box" onclick="addWord(this)">silent</div>
-    <div class="word-box" onclick="addWord(this)">nights</div>
-    <div class="word-box" onclick="addWord(this)">with</div>
-    <div class="word-box" onclick="addWord(this)">you</div>
-    <div class="word-box" onclick="addWord(this)">feel</div>
-    <div class="word-box" onclick="addWord(this)">like</div>
-    <div class="word-box" onclick="addWord(this)">home</div>
-</div>
-
-<div id="poem"></div>
-
-<button onclick="checkPoem()">Submit Haiku</button>
-
-<script>
-let poem = [];
-
-function addWord(element) {
-    poem.push(element.innerText);
-    document.getElementById("poem").innerText = poem.join(" ");
-}
-
-function checkPoem() {
-    let correct = "silent nights with you feel like home";
-    if (poem.join(" ") === correct) {
-        alert("You solved it ❤️ You are my forever.");
-    } else {
-        alert("Hmm… try again my poet 😌");
-    }
-}
-</script>
-
 </body>
 </html>
